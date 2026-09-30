@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Serum Website</title>
+
+
+    <!-- Tailwind -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+    <!-- GSAP -->
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+
+
+    <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+     background: linear-gradient(
+        135deg,
+        #F8F1E7 0%,
+        #624c2b 50%,
+        #F7EFE5 100%
+    );
+    color: #171717;
+
+            font-family: Arial, sans-serif;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+
+            position: relative;
+
+            z-index: 100;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+
+            height: 100vh;
+
+            overflow: hidden;
+        }
+
+
+        .hero-slider {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100%;
+        }
+
+
+        /* =========================
+           EACH SLIDE
+        ========================= */
+
+        .hero-content {
+
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 40px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 50px;
+
+
+            /*
+                All slides are stacked
+                on top of each other.
+            */
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform: scale(0.96);
+        }
+
+
+        /*
+            First slide visible initially
+        */
+
+        .hero-content:first-child {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform: scale(1);
+        }
+
+
+        /* =========================
+           TEXT
+        ========================= */
+
+        .hero-text {
+
+            flex: 1;
+
+            overflow: hidden;
+        }
+
+
+        .hero-text h1 {
+
+            font-size: clamp(60px, 8vw, 130px);
+
+            line-height: 0.9;
+
+            font-weight: 700;
+
+            letter-spacing: -5px;
+        }
+
+
+        /*
+            Text masking
+        */
+
+        .line {
+
+            display: block;
+
+            overflow: hidden;
+        }
+
+
+        .line span {
+
+            display: block;
+        }
+
+
+        .hero-text p {
+
+            margin-top: 30px;
+
+            font-size: 18px;
+
+            color: #555;
+        }
+
+
+        /* =========================
+           PRODUCT / IMAGE
+        ========================= */
+
+        .product {
+
+            flex: 1;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .product img {
+
+            width: min(450px, 70vw);
+
+            height: auto;
+
+            display: block;
+
+            object-fit: cover;
+
+            border-radius: 20px;
+        }
+
+
+        /* =========================
+           NEXT SECTION
+        ========================= */
+
+        .ingredients {
+
+            min-height: 100vh;
+
+            padding: 120px 40px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            background: #111;
+
+            color: white;
+        }
+
+
+        .ingredients h2 {
+
+            font-size: clamp(50px, 8vw, 120px);
+
+            line-height: 0.9;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .hero-content {
+
+                flex-direction: column;
+
+                justify-content: center;
+
+                text-align: center;
+
+                padding: 20px;
+
+                gap: 30px;
+            }
+
+
+            .hero-text h1 {
+
+                font-size: clamp(48px, 13vw, 80px);
+
+                letter-spacing: -3px;
+            }
+
+
+            .hero-text p {
+
+                font-size: 15px;
+
+                margin-top: 20px;
+            }
+
+
+            .product {
+
+                width: 100%;
+            }
+
+
+            .product img {
+
+                width: min(300px, 75vw);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="flex justify-center items-center px-5 py-4">
+
+        <div
+            class="bg-[red]
+                   px-5
+                   py-2
+                   rounded-4xl
+                   text-white
+                   hidden
+                   md:flex
+                   justify-between
+                   items-center
+                   gap-5
+                   lg:gap-10">
+
+
+            <span>Home</span>
+
+            <span>Our Serums</span>
+
+            <span>Ingredients</span>
+
+            <span>How It Works</span>
+
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+
+        <div class="hero-slider">
+
+
+            <!-- =========================
+                 SLIDE 1
+            ========================= -->
+
+            <div class="hero-content">
+
+
+                <div class="hero-text">
+
+                    <h1>
+
+                        <span class="line">
+
+                            <span>
+                                Glow that
+                            </span>
+
+                        </span>
+
+
+                        <span class="line">
+
+                            <span>
+                                starts small.
+                            </span>
+
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+                        10% Vitamin C Brightening Serum
+                    </p>
+
+                </div>
+
+
+                <div class="product">
+
+                    <img
+                        src="images/1.jpg"
+                        alt="Vitamin C Serum"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 SLIDE 2
+            ========================= -->
+
+            <div class="hero-content">
+
+
+                <div class="hero-text">
+
+                    <h1>
+
+                        <span class="line">
+
+                            <span>
+                                Brighten
+                            </span>
+
+                        </span>
+
+
+                        <span class="line">
+
+                            <span>
+                                your skin.
+                            </span>
+
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+                        Powerful Vitamin C for brighter-looking skin.
+                    </p>
+
+                </div>
+
+
+                <div class="product">
+
+                    <img
+                        src="images/image1.png"
+                        alt="Vitamin C Serum"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 SLIDE 3
+            ========================= -->
+
+            <div class="hero-content">
+
+
+                <div class="hero-text">
+
+                    <h1>
+
+                        <span class="line">
+
+                            <span>
+                                Lightweight.
+                            </span>
+
+                        </span>
+
+
+                        <span class="line">
+
+                            <span>
+                                Powerful.
+                            </span>
+
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+                        Designed for everyday skincare.
+                    </p>
+
+                </div>
+
+
+                <div class="product">
+
+                    <img
+                        src="images/3.jpg"
+                        alt="Vitamin C Serum"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 SLIDE 4
+            ========================= -->
+
+            <div class="hero-content">
+
+
+                <div class="hero-text">
+
+                    <h1>
+
+                        <span class="line">
+
+                            <span>
+                                Deep
+                            </span>
+
+                        </span>
+
+
+                        <span class="line">
+
+                            <span>
+                                hydration.
+                            </span>
+
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+                        Keep your skin feeling fresh and hydrated.
+                    </p>
+
+                </div>
+
+
+                <div class="product">
+
+                    <img
+                        src="images/4.jpg"
+                        alt="Vitamin C Serum"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 SLIDE 5
+            ========================= -->
+
+            <div class="hero-content">
+
+
+                <div class="hero-text">
+
+                    <h1>
+
+                        <span class="line">
+
+                            <span>
+                                Daily
+                            </span>
+
+                        </span>
+
+
+                        <span class="line">
+
+                            <span>
+                                ritual.
+                            </span>
+
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+                        A simple step for your daily routine.
+                    </p>
+
+                </div>
+
+
+                <div class="product">
+
+                    <img
+                        src="images/5.jpg"
+                        alt="Vitamin C Serum"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 SLIDE 6
+            ========================= -->
+
+            <div class="hero-content">
+
+
+                <div class="hero-text">
+
+                    <h1>
+
+                        <span class="line">
+
+                            <span>
+                                Clean
+                            </span>
+
+                        </span>
+
+
+                        <span class="line">
+
+                            <span>
+                                formula.
+                            </span>
+
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+                        Thoughtfully formulated for your skin.
+                    </p>
+
+                </div>
+
+
+                <div class="product">
+
+                    <img
+                        src="images/6.jpg"
+                        alt="Vitamin C Serum"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 SLIDE 7
+            ========================= -->
+
+            <div class="hero-content">
+
+
+                <div class="hero-text">
+
+                    <h1>
+
+                        <span class="line">
+
+                            <span>
+                                Visible
+                            </span>
+
+                        </span>
+
+
+                        <span class="line">
+
+                            <span>
+                                glow.
+                            </span>
+
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+                        Make your skincare routine feel special.
+                    </p>
+
+                </div>
+
+
+                <div class="product">
+
+                    <img
+                        src="images/7.jpg"
+                        alt="Vitamin C Serum"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 SLIDE 8
+            ========================= -->
+
+            <div class="hero-content">
+
+
+                <div class="hero-text">
+
+                    <h1>
+
+                        <span class="line">
+
+                            <span>
+                                Your glow
+                            </span>
+
+                        </span>
+
+
+                        <span class="line">
+
+                            <span>
+                                starts here.
+                            </span>
+
+                        </span>
+
+                    </h1>
+
+
+                    <p>
+                        Discover your new skincare ritual.
+                    </p>
+
+                </div>
+
+
+                <div class="product">
+
+                    <img
+                        src="images/8.jpg"
+                        alt="Vitamin C Serum"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         NEXT SECTION
+    ========================= -->
+
+    <section class="ingredients">
+
+
+        <h2>
+
+            Ingredients
+            <br>
+            that matter.
+
+        </h2>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         GSAP
+    ========================= -->
+
+    <script>
+
+
+        gsap.registerPlugin(ScrollTrigger);
+
+
+        /* =====================================
+           SELECT ALL SLIDES
+        ===================================== */
+
+        const slides = gsap.utils.toArray(".hero-content");
+
+
+        /* =====================================
+           INITIAL STATE
+        ===================================== */
+
+        slides.forEach((slide, index) => {
+
+            if (index !== 0) {
+
+                gsap.set(slide, {
+
+                    opacity: 0,
+
+                    visibility: "hidden",
+
+                    scale: 0.96
+
+                });
+
+            }
+
+        });
+
+
+        /* =====================================
+           INTRO ANIMATION
+        ===================================== */
+
+        const intro = gsap.timeline();
+
+
+        intro.from(
+            ".hero-content:first-child .line span",
+            {
+
+                y: 120,
+
+                opacity: 0,
+
+                duration: 1,
+
+                stagger: 0.15,
+
+                ease: "power4.out"
+
+            }
+        );
+
+
+        intro.from(
+            ".hero-content:first-child p",
+            {
+
+                y: 30,
+
+                opacity: 0,
+
+                duration: 0.7,
+
+                ease: "power3.out"
+
+            },
+
+            "-=0.5"
+        );
+
+
+        intro.from(
+            ".hero-content:first-child .product",
+            {
+
+                scale: 0.6,
+
+                opacity: 0,
+
+                duration: 1,
+
+                ease: "back.out(1.7)"
+
+            },
+
+            "-=0.7"
+        );
+
+
+
+        /* =====================================
+           SCROLL SLIDER
+        ===================================== */
+
+        const scrollTimeline = gsap.timeline({
+
+            scrollTrigger: {
+
+                trigger: ".hero",
+
+                start: "top top",
+
+                /*
+                    700px of scroll
+                    for every slide
+                */
+
+                end: `+=${slides.length * 700}`,
+
+                scrub: 1,
+
+                pin: true,
+
+                anticipatePin: 1,
+
+                /*
+                    Set true while debugging
+                    Set false when finished
+                */
+
+                markers: false
+
+            }
+
+        });
+
+
+
+        /* =====================================
+           SLIDE TRANSITIONS
+        ===================================== */
+
+        slides.forEach((slide, index) => {
+
+
+            /*
+                Don't animate
+                the first slide in.
+            */
+
+            if (index === 0) return;
+
+
+            const previousSlide = slides[index - 1];
+
+
+            /* ===============================
+               PREVIOUS SLIDE OUT
+            =============================== */
+
+            scrollTimeline.to(
+
+                previousSlide,
+
+                {
+
+                    opacity: 0,
+
+                    scale: 0.92,
+
+                    duration: 1,
+
+                    ease: "power2.inOut"
+
+                }
+
+            );
+
+
+            /* ===============================
+               NEW SLIDE IN
+            =============================== */
+
+            scrollTimeline.to(
+
+                slide,
+
+                {
+
+                    opacity: 1,
+
+                    visibility: "visible",
+
+                    scale: 1,
+
+                    duration: 1,
+
+                    ease: "power2.inOut"
+
+                },
+
+                "<"
+
+            );
+
+
+            /* ===============================
+               TEXT ENTRANCE
+            =============================== */
+
+            scrollTimeline.from(
+
+                slide.querySelectorAll(".line span"),
+
+                {
+
+                    y: 80,
+
+                    opacity: 0,
+
+                    duration: 0.6,
+
+                    stagger: 0.08,
+
+                    ease: "power3.out"
+
+                },
+
+                "<0.15"
+
+            );
+
+
+            /* ===============================
+               SUBTITLE
+            =============================== */
+
+            scrollTimeline.from(
+
+                slide.querySelector("p"),
+
+                {
+
+                    y: 25,
+
+                    opacity: 0,
+
+                    duration: 0.5,
+
+                    ease: "power2.out"
+
+                },
+
+                "<0.2"
+
+            );
+
+
+            /* ===============================
+               IMAGE ENTRANCE
+            =============================== */
+
+            scrollTimeline.from(
+
+                slide.querySelector(".product"),
+
+                {
+
+                    x: 100,
+
+                    scale: 0.85,
+
+                    opacity: 0,
+
+                    duration: 0.8,
+
+                    ease: "power3.out"
+
+                },
+
+                "<"
+
+            );
+
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>
+
