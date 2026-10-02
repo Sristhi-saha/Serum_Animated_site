@@ -1,18 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
 
-
-/* =========================================
-   RESET
-========================================= */
-
+/* =========================================================
+   BASE
+   ========================================================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-html {
-    /* scroll-behavior removed to prevent conflict with GSAP ScrollTrigger */
 }
 
 body {
@@ -22,58 +16,37 @@ body {
     overflow-x: hidden;
 }
 
-
-/* =========================================
-   HERO
-========================================= */
-
-.hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background: #F8F1E7;
-}
-
-
-/* =========================================
-   NAVBAR
-========================================= */
-
+/* =========================================================
+   NAVBAR (fixed, outside the hero)
+   ========================================================= */
 .navbar {
-    position: absolute;
-
+    position: fixed;
     top: 0;
     left: 0;
-
     width: 100%;
-
     padding: 32px 5%;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    z-index: 100;
+    z-index: 1000;
+    transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
 }
 
+.navbar.scrolled {
+    background: rgba(248, 241, 231, 0.92);
+    backdrop-filter: blur(10px);
+    padding: 18px 5%;
+    box-shadow: 0 4px 30px rgba(120, 70, 10, 0.08);
+}
 
 .logo {
     font-family: "Cormorant Garamond", serif;
-
     font-size: 30px;
-
     font-weight: 600;
-
     letter-spacing: 1px;
-
     color: #FFF7E8;
+    transition: color 0.4s ease;
 }
-
-
-/* =========================================
-   NAV LINKS
-========================================= */
 
 .nav-links {
     display: flex;
@@ -83,20 +56,12 @@ body {
 
 .nav-links a {
     color: rgba(255, 255, 255, 0.85);
-
     text-decoration: none;
-
     font-size: 12px;
-
     letter-spacing: 2px;
-
     padding: 6px 10px;
-
     text-transform: uppercase;
-
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-links a:hover {
@@ -104,620 +69,699 @@ body {
     transform: translateY(-2px);
 }
 
-
 .nav-links .active {
     background: #D97816;
-
     color: #FFF7E8;
-
     padding: 7px 12px;
-
     border-radius: 4px;
-
     font-weight: 600;
 }
 
-
-/* =========================================
-   BUY BUTTON
-========================================= */
+.navbar.scrolled .logo { color: #3a2a1a; }
+.navbar.scrolled .nav-links a { color: rgba(58, 42, 26, 0.8); }
+.navbar.scrolled .nav-links a:hover { color: #C96A12; }
+.navbar.scrolled .nav-links .active { color: #FFF7E8; }
 
 .buy-now {
     padding: 11px 20px;
-
     background: #C96A12;
-
     border: none;
-
     color: #FFF7E8;
-
     border-radius: 20px;
-
     font-weight: 600;
-
     font-size: 13px;
-
     letter-spacing: 0.5px;
-
     cursor: pointer;
-
-    transition:
-        background 0.3s ease,
-        transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .buy-now:hover {
     background: #A9520C;
-
     transform: translateY(-2px);
 }
 
-
-/* =========================================
-   HERO SLIDES
-========================================= */
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #F8F1E7;
+}
 
 .heroItem-wrapper {
     position: relative;
-
     width: 100%;
     height: 100vh;
-
     overflow: hidden;
 }
-
 
 .heroItem {
     position: absolute;
-
     inset: 0;
-
     width: 100%;
     height: 100vh;
-
     overflow: hidden;
-
     opacity: 1;
-
     will-change: transform;
 }
 
-
-/*
-    DO NOT keep .item1 opacity: 1
-    JS controls the slides.
-*/
-
-
-/* =========================================
-   IMAGE
-========================================= */
-
 .itemImage {
     position: absolute;
-
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-
     object-position: center;
-
     transform: scale(1);
-
-    will-change:
-        transform,
-        opacity;
+    will-change: transform, opacity;
 }
-
-
-/* =========================================
-   DARK OVERLAY
-========================================= */
 
 .dark-overlay {
     position: absolute;
-
     inset: 0;
-
     z-index: 2;
-
     pointer-events: none;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0.58) 0%,
-            rgba(0, 0, 0, 0.32) 45%,
-            rgba(0, 0, 0, 0.08) 100%
-        );
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.58) 0%,
+        rgba(0, 0, 0, 0.32) 45%,
+        rgba(0, 0, 0, 0.08) 100%
+    );
 }
-
-
-/* =========================================
-   CONTENT
-========================================= */
 
 .item-content {
     position: absolute;
-
     z-index: 5;
-
     left: 8%;
-
     top: 50%;
-
     transform: translateY(-50%);
-
     width: min(650px, 45vw);
-
     max-width: 650px;
-
-    will-change:
-        transform,
-        opacity;
+    will-change: transform, opacity;
 }
-
 
 .item-content-right {
     left: 50%;
-
     transform: translate(-50%, -50%);
-
     text-align: center;
 }
 
-
-/* =========================================
-   SMALL TITLE
-========================================= */
-
 .small-title {
     display: block;
-
     margin-bottom: 22px;
-
     font-size: 12px;
-
     font-weight: 500;
-
     letter-spacing: 4px;
-
     text-transform: uppercase;
-
     color: #F0B75E;
 }
-
-
-/* =========================================
-   MAIN HEADING
-========================================= */
 
 .item-content h1,
 .item-content h2 {
     margin: 0;
-
     font-family: "Cormorant Garamond", serif;
-
     font-weight: 600;
-
     line-height: 0.92;
-
     letter-spacing: -2px;
 }
 
-
 .item-content h1 {
     font-size: clamp(48px, 5vw, 78px);
-
     color: #FFF7E8;
 }
-
 
 .item-content h1 span {
     color: #F2B34B;
 }
 
-
 .item-content h2 {
     font-size: clamp(70px, 9vw, 140px);
-
     color: #FFF7E8;
 }
 
-
-/* =========================================
-   DESCRIPTION
-========================================= */
-
 .item-content p {
     margin-top: 28px;
-
     max-width: 470px;
-
     font-size: 16px;
-
     font-weight: 300;
-
     line-height: 1.8;
-
     letter-spacing: 0.5px;
-
     color: rgba(255, 255, 255, 0.78);
 }
 
-
-/* =========================================
-   SCROLL INDICATOR
-========================================= */
-
+/* Scroll indicator + progress */
 .scroll-indicator {
     position: absolute;
-
     z-index: 50;
-
     bottom: 35px;
-
     left: 50%;
-
     transform: translateX(-50%);
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     gap: 12px;
-
     pointer-events: none;
 }
 
-
 .scroll-indicator > span:first-child {
     font-size: 10px;
-
     letter-spacing: 4px;
-
     text-transform: uppercase;
-
     color: rgba(255, 255, 255, 0.7);
 }
-
-
-/* =========================================
-   SCROLL ARROW
-========================================= */
 
 .scroll-arrow {
     width: 40px;
     height: 40px;
-
     border: 1px solid rgba(255, 255, 255, 0.45);
-
     border-radius: 50%;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     font-size: 18px;
-
     color: #E8B963;
-
     animation: arrowFloat 1.8s ease-in-out infinite;
 }
 
-
 @keyframes arrowFloat {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(6px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
 }
-
-
-/* =========================================
-   PROGRESS BAR
-========================================= */
 
 .progress {
     position: absolute;
-
     z-index: 50;
-
     left: 0;
-
     bottom: 0;
-
     width: 100%;
-
     height: 5px;
-
     background: rgba(255, 255, 255, 0.25);
-
     overflow: hidden;
 }
 
-
 .progress-bar {
     width: 0%;
-
     height: 100%;
-
     background: #E8B963;
-
     transform-origin: left center;
 }
 
-
-/* =========================================
-   EXTRA SCROLL ELEMENTS
-========================================= */
-
-.scroll-span {
-    margin-top: 50px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 15px;
+/* =========================================================
+   SHARED SECTION STYLES
+   (scoped so they don't affect .heroItem-wrapper)
+   ========================================================= */
+.ingredients,
+.stats,
+.how,
+.showcase,
+.reviews {
+    position: relative;
+    padding: 140px 8%;
+    color: #3a2a1a;
 }
 
-
-.scroll-final {
-    margin-top: 50px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 15px;
-}
-
-
-.scroll-final span {
-    font-size: 11px;
-
+.eyebrow {
+    display: block;
+    font-size: 12px;
     letter-spacing: 4px;
-
     text-transform: uppercase;
+    color: #C96A12;
+    margin-bottom: 16px;
+}
 
+.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(40px, 6vw, 84px);
+    line-height: 1;
+    font-weight: 600;
+}
+
+.section-title em {
+    color: #D97816;
+    font-style: italic;
+}
+
+/* =========================================================
+   INGREDIENTS (slides up over the pinned hero)
+   ========================================================= */
+.ingredients {
+    margin-top: -100vh;
+    z-index: 10;
+    background: #F8F1E7;
+    border-radius: 40px 40px 0 0;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+    margin-top: 70px;
+}
+
+.card {
+    background: #fff;
+    padding: 40px 32px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(120, 70, 10, 0.08);
+}
+
+.card h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 40px;
+    background: #2b1b0e;
+    color: #FFF7E8;
+    text-align: center;
+}
+
+.stat {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(56px, 8vw, 110px);
+    color: #F2B34B;
+}
+
+.stat p {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+.steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    margin-top: 90px;
+}
+
+.step-line {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #E8B963;
+    transform-origin: left;
+}
+
+.step b {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 64px;
     color: #E8B963;
 }
 
-
-.line {
-    width: 100px;
-
-    height: 1px;
-
-    background: #E8B963;
+.step h3 {
+    font-size: 24px;
+    margin: 8px 0;
 }
 
+/* =========================================================
+   MARQUEE
+   ========================================================= */
+.marquee {
+    position: relative;
+    padding: 28px 0;
+    background: #D97816;
+    color: #FFF7E8;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
-/* =========================================
-   TABLET
-========================================= */
+.marquee-track {
+    display: flex;
+    width: max-content;
+}
 
+.marquee-group {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding-right: 40px;
+}
+
+.marquee-group span {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.marquee-group i {
+    font-style: normal;
+    color: #2b1b0e;
+    font-size: 28px;
+}
+
+/* =========================================================
+   SHOWCASE
+   ========================================================= */
+.showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    background: #F1E4D0;
+}
+
+.showcase-img {
+    height: 70vh;
+    min-height: 420px;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.showcase-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.showcase-text .lead {
+    margin: 28px 0 36px;
+    max-width: 480px;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(58, 42, 26, 0.8);
+}
+
+.features {
+    list-style: none;
+    margin-bottom: 40px;
+}
+
+.features li {
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(58, 42, 26, 0.15);
+    font-size: 16px;
+}
+
+.features li b {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    color: #C96A12;
+}
+
+/* =========================================================
+   JOURNEY (pinned horizontal scroll)
+   ========================================================= */
+.journey {
+    position: relative;
+    height: 100vh;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+    overflow: hidden;
+    background: #2b1b0e;
+    color: #FFF7E8;
+}
+
+.journey-head {
+    padding: 0 8%;
+}
+
+.journey-track {
+    display: flex;
+    gap: 32px;
+    width: max-content;
+    padding: 0 8%;
+}
+
+.panel {
+    width: min(420px, 80vw);
+    min-height: 300px;
+    padding: 40px 34px;
+    border: 1px solid rgba(232, 185, 99, 0.35);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.panel b {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 56px;
+    color: #E8B963;
+    display: block;
+}
+
+.panel h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px;
+    margin: 12px 0;
+}
+
+.panel p {
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================================================
+   REVIEWS
+   ========================================================= */
+.reviews {
+    background: #F8F1E7;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    margin-top: 70px;
+}
+
+.review {
+    background: #fff;
+    padding: 40px 32px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(120, 70, 10, 0.08);
+}
+
+.stars {
+    color: #D97816;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.review blockquote {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 26px;
+    line-height: 1.3;
+    margin-bottom: 24px;
+}
+
+.review figcaption {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #C96A12;
+}
+
+/* =========================================================
+   CTA (video card)
+   ========================================================= */
+.cta {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+    padding: 80px 8%;
+    background: #1c1209;
+    color: #FFF7E8;
+    overflow: hidden;
+    text-align: left;
+}
+
+.cta-video {
+    height: 80vh;
+    aspect-ratio: 9 / 16;
+    justify-self: center;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.cta-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 1;
+    margin-bottom: 30px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+    padding: 100px 8% 40px;
+    background: #140d06;
+    color: #FFF7E8;
+    overflow: hidden;
+}
+
+.footer-big {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(60px, 16vw, 260px);
+    line-height: 0.9;
+    font-weight: 600;
+    color: #F2B34B;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.footer-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 70px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-links {
+    display: flex;
+    gap: 28px;
+}
+
+.footer-links a {
+    color: inherit;
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #F4C875;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 @media (max-width: 900px) {
+    .navbar { padding: 24px 4%; }
+    .nav-links { gap: 15px; }
+    .nav-links a { font-size: 10px; letter-spacing: 1px; padding: 5px 7px; }
+    .logo { font-size: 25px; }
+    .buy-now { padding: 9px 15px; font-size: 12px; }
 
-    .navbar {
-        padding: 24px 4%;
-    }
+    .item-content { left: 6%; width: 55vw; }
+    .item-content h1 { font-size: clamp(42px, 6vw, 68px); }
 
-
-    .nav-links {
-        gap: 15px;
-    }
-
-
-    .nav-links a {
-        font-size: 10px;
-
-        letter-spacing: 1px;
-
-        padding: 5px 7px;
-    }
-
-
-    .logo {
-        font-size: 25px;
-    }
-
-
-    .buy-now {
-        padding: 9px 15px;
-
-        font-size: 12px;
-    }
-
-
-    .item-content {
-        left: 6%;
-
-        width: 55vw;
-    }
-
-
-    .item-content h1 {
-        font-size: clamp(42px, 6vw, 68px);
-    }
+    .showcase { grid-template-columns: 1fr; gap: 50px; }
+    .showcase-img { height: 50vh; }
 }
-
-
-/* =========================================
-   MOBILE
-========================================= */
 
 @media (max-width: 768px) {
+    .navbar { padding: 20px 5%; }
+    .logo { font-size: 24px; }
+    .nav-links { display: none; }
+    .buy-now { padding: 9px 16px; font-size: 12px; }
 
-    .navbar {
-        padding: 20px 5%;
-    }
-
-
-    .logo {
-        font-size: 24px;
-    }
-
-
-    .nav-links {
-        display: none;
-    }
-
-
-    .buy-now {
-        padding: 9px 16px;
-
-        font-size: 12px;
-    }
-
-
-    .heroItem {
-        height: 100vh;
-    }
-
+    .heroItem { height: 100vh; }
 
     .dark-overlay {
-        background:
-            linear-gradient(
-                180deg,
-                rgba(0, 0, 0, 0.20) 0%,
-                rgba(0, 0, 0, 0.45) 55%,
-                rgba(0, 0, 0, 0.78) 100%
-            );
+        background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.20) 0%,
+            rgba(0, 0, 0, 0.45) 55%,
+            rgba(0, 0, 0, 0.78) 100%
+        );
     }
-
 
     .item-content {
         left: 7%;
-
         right: 7%;
-
         top: auto;
-
         bottom: 18%;
-
         transform: none;
-
         width: auto;
-
         max-width: none;
     }
 
-
     .item-content h1 {
         font-size: clamp(42px, 12vw, 68px);
-
         line-height: 0.9;
-
         letter-spacing: -1.5px;
     }
 
-
-    .small-title {
-        font-size: 10px;
-
-        letter-spacing: 3px;
-
-        margin-bottom: 16px;
-    }
-
+    .small-title { font-size: 10px; letter-spacing: 3px; margin-bottom: 16px; }
 
     .item-content p {
         margin-top: 20px;
-
         max-width: 90%;
-
         font-size: 14px;
-
         line-height: 1.6;
     }
 
+    .scroll-indicator { bottom: 25px; }
+    .scroll-indicator > span:first-child { font-size: 8px; letter-spacing: 3px; }
+    .scroll-arrow { width: 34px; height: 34px; font-size: 16px; }
+    .progress { height: 2px; }
 
-    .scroll-indicator {
-        bottom: 25px;
+    .ingredients,
+    .stats,
+    .how,
+    .showcase,
+    .reviews { padding: 90px 6%; }
+
+    .cta {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 80px 6%;
+        text-align: center;
     }
+    .cta-video { height: 60vh; }
 
-
-    .scroll-indicator > span:first-child {
-        font-size: 8px;
-
-        letter-spacing: 3px;
-    }
-
-
-    .scroll-arrow {
-        width: 34px;
-        height: 34px;
-
-        font-size: 16px;
-    }
-
-
-    .progress {
-        height: 2px;
-    }
+    .footer { padding: 70px 6% 30px; }
 }
 
-
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
 @media (max-width: 480px) {
+    .navbar { padding: 18px 5%; }
+    .logo { font-size: 21px; }
+    .buy-now { padding: 8px 14px; font-size: 11px; }
 
-    .navbar {
-        padding: 18px 5%;
-    }
-
-
-    .logo {
-        font-size: 21px;
-    }
-
-
-    .buy-now {
-        padding: 8px 14px;
-
-        font-size: 11px;
-    }
-
-
-    .item-content {
-        bottom: 17%;
-    }
-
-
-    .item-content h1 {
-        font-size: clamp(38px, 12vw, 55px);
-    }
-
-
-    .item-content p {
-        font-size: 13px;
-
-        max-width: 95%;
-    }
-
-
-    .small-title {
-        font-size: 9px;
-
-        letter-spacing: 2.5px;
-    }
+    .item-content { bottom: 17%; }
+    .item-content h1 { font-size: clamp(38px, 12vw, 55px); }
+    .item-content p { font-size: 13px; max-width: 95%; }
+    .small-title { font-size: 9px; letter-spacing: 2.5px; }
 }
